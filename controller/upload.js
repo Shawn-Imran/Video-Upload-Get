@@ -10,10 +10,10 @@ const Video = require('../models/video');
  * UPLOAD FILE
  */
 
-const fileStorageForPDF = multer.diskStorage({
+const fileStorageForVideo = multer.diskStorage({
     destination: (req, file, cb) => {
         // Destination Folder Dynamic..
-        const dir = './uploads/pdf'
+        const dir = './uploads/Video'
 
         // Check Folder Exists or not
         fs.exists(dir, exist => {
@@ -30,7 +30,7 @@ const fileStorageForPDF = multer.diskStorage({
     }
 });
 
-function checkPdfFileType(file, cb) {
+function checkVideoFileType(file, cb) {
     // Allowed Ext..
     const fileTypes = /mp4|mkv|3gp|wemb|flv|m/;
     // Check Extension..
@@ -41,27 +41,27 @@ function checkPdfFileType(file, cb) {
     if (mimetype && extname) {
         return cb(null, true);
     } else {
-        cb('Error! PDF Only!');
+        cb('Error! Video Only!');
     }
 
 }
 
 
-exports.multerConfigPdf = multer({
-    storage: fileStorageForPDF,
+exports.multerSingleVideo = multer({
+    storage: fileStorageForVideo,
     limits: {fileSize: 50000000},
     fileFilter: function (req, file, cb) {
-        checkPdfFileType(file, cb)
+        checkVideoFileType(file, cb)
     }
 })
 
 
-exports.uploaderPdf = (req, res, next) => {
+exports.uploaderVideo = (req, res, next) => {
     if (req.file === undefined) {
-        const error = new Error('No Pdf File provide');
+        const error = new Error('No Video File provide');
         next(error)
         // res.status(404).json({
-        //     message: 'No PDF Provided'
+        //     message: 'No Video Provided'
         // });
         return;
     }

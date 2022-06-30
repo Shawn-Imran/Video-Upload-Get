@@ -8,10 +8,10 @@ const router = express.Router();
 
 /**
  * /api/upload
- * http://localhost:3000/api/upload
+ * http://localhost:3001/api/upload
  */
 
-router.post('/single-video', controller.multerConfigPdf.single(process.env.VIDEO_FIELD), controller.uploaderPdf);
+router.post('/single-video', controller.multerSingleVideo.single(process.env.VIDEO_FIELD), controller.uploaderVideo);
 // get all videos
 router.get('/all-videos', controller.getAllVideos);
 
